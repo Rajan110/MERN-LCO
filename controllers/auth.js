@@ -11,8 +11,7 @@ exports.signin = (req, res) => {
         return res.status(422).json({
             success: false,
             error: {
-                message: errors.array()[0].msg,
-                param: errors.array()[0].param
+                error: errors.array()
             }
         });
     }
@@ -56,8 +55,9 @@ exports.signup = (req, res) => {
         return res.status(422).json({
             error: {
                 success: false,
-                message: errors.array()[0].msg,
-                param: errors.array()[0].param
+                error: errors.array()
+                // message: errors.array()[0].msg,
+                // param: errors.array()[0].param
             }
         });
     }
@@ -67,7 +67,7 @@ exports.signup = (req, res) => {
         if (err || !user) {
             return res.status(400).json({
                 success: false,
-                message: "Failed to save User."
+                error: "Failed to save User / User Exists."
             });
         }
 
