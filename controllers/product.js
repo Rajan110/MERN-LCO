@@ -107,7 +107,7 @@ exports.createProduct = (req, res) => {
                     error: "Failed To Save Product."
                 });
             }
-
+            product.photo = undefined;
             return res.json({
                 success: true,
                 message: "Product Added Successfully.",
