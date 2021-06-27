@@ -43,8 +43,28 @@ exports.createOrder = (req, res) => {
   });
 };
 
+exports.getUserOrders = (req, res) => {
+  let userId = req.profile._id;
+  Order.find({ user: userId })
+    .sort({ createdAt: -1 })
+    .exec((err, orders) => {
+      if (err || !orders) {
+        return res.status(400).json({
+          success: false,
+          error: "Orders Not Found.",
+        });
+      }
+      return res.json({
+        success: true,
+        message: "Orders Retrieved Successfully.",
+        orders: orders,
+      });
+    });
+};
+
 exports.getAllOrders = (req, res) => {
   Order.find()
+    .sort({ createdAt: -1 })
     .populate("user", "_id name")
     .exec((err, orders) => {
       if (err || !orders) {
